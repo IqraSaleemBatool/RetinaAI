@@ -115,7 +115,7 @@ RetinaAI/
 ## Contributors
 
 - **Iqra Batool**
-- **Team Member Name**
+- **Aqsa Majeed**
 
 ---
 
