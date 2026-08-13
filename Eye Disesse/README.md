@@ -33,7 +33,7 @@ The dataset includes:
 - Multi-label disease annotations
 - Diagnostic keywords
 
-## 🔍 Exploratory Data Analysis (EDA)
+##  Exploratory Data Analysis (EDA)
 
 Key insights from the dataset:
 
