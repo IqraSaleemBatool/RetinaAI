@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # RetinaAI Final Prototype
 
 ## Final flow
