@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<<<<<<< HEAD
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>RetinaAI | Clinical Research Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-mark">
+        <i class="fa-solid fa-eye"></i>
+    </div><div>
+        <div class="brand-name">RetinaAI</div>
+        <div class="brand-subtitle">Clinical Research</div>
+    </div></div>
+  <div class="nav-title">MAIN MENU</div>
+  <button class="nav-item active" data-page="home">
+    <i class="fa-solid fa-house"></i>
+    <span>Home</span></button>
+  <button class="nav-item" data-page="dashboard">
+    <i class="fa-solid fa-chart-line"></i>
+    <span>Dashboard</span></button>
+</aside>
+
+<main class="main">
+<section id="homePage" class="page home-page">
+<div class="home-background"></div><div class="home-background-overlay"></div>
+<div class="home-content">
+<div class="home-copy">
+<h1>AI Clinical Decision<br><span>Support for Retinal Care</span></h1>
+<p>Patient-level retinal screening using left and right fundus images across eight ocular disease classes.</p>
+</div>
+<div class="supported-header"><div><h2>Retinal disease classes</h2></div></div>
+<div class="disease-grid">
+<div class="disease-card"><img src="static/43_left.jpg"><div><strong>AMD</strong>
+    <small>Age-related macular degeneration</small></div></div>
+<div class="disease-card"><img src="static/24_left.jpg"><div><strong>Cataract</strong>
+    <small>Cataract</small></div></div>
+<div class="disease-card"><img src="static/2_left.jpg"><div><strong>Diabetic Retinopathy</strong>
+    <small>Diabetic retinopathy</small></div></div>
+<div class="disease-card"><img src="static/167_left.jpg"><div><strong>Glaucoma</strong>
+    <small>Glaucoma</small></div></div>
+<div class="disease-card"><img src="static/28_left.jpg"><div><strong>Hypertension</strong>
+    <small>Hypertensive retinal changes</small></div></div>
+<div class="disease-card"><img src="static/18_left.jpg"><div><strong>Myopia</strong>
+    <small>Myopia</small></div></div>
+<div class="disease-card"><img src="static/0_left.jpg"><div><strong>Normal</strong>
+    <small>No detected retinal abnormality</small></div></div>
+<div class="disease-card"><img src="static/9_left.jpg"><div><strong>Others</strong>
+    <small>Other retinal findings</small></div></div>
+</div>
+</div>
+</section>
+
+<section id="dashboardPage" class="page workspace-page hidden">
+<header class="page-header"><div><span class="kicker">DASHBOARD</span><h1>Patient Retinal Analysis</h1><p>Upload the left and right fundus images of the same patient to begin analysis.</p></div>
+</header>
+<div class="workspace-grid"><div class="analysis-area">
+
+<section id="uploadPanel" class="panel">
+<div class="panel-title"><div><span class="mini-label">STEP 01</span><h2>Upload Patient Images</h2></div><i class="fa-solid fa-cloud-arrow-up title-icon"></i></div>
+<div class="eye-upload-grid">
+<label class="eye-upload-zone"><input id="leftInput" type="file" accept=".jpg,.jpeg,.png"><div class="upload-icon"></div><strong>Left Eye</strong><span id="leftLabel">Select left-eye fundus image</span></label>
+<label class="eye-upload-zone"><input id="rightInput" type="file" accept=".jpg,.jpeg,.png"><div class="upload-icon"></div><strong>Right Eye</strong><span id="rightLabel">Select right-eye fundus image</span></label>
+</div>
+<div class="patient-note">
+    <span>Upload the left and right retinal images of <strong>one patient</strong>.</span></div>
+</section>
+
+<section id="selectedPanel" class="panel hidden">
+<div class="panel-title"><div><span class="mini-label">STEP 02</span><h2>Patient Images Ready</h2></div><span class="ready-badge">Both images selected</span></div>
+<div class="selected-files">
+<div class="selected-file"><div class="file-icon"></div><div class="file-text"><span class="mini-label">LEFT EYE</span><strong id="leftName">—</strong></div></div>
+<div class="selected-file"><div class="file-icon"></div><div class="file-text"><span class="mini-label">RIGHT EYE</span><strong id="rightName">—</strong></div></div>
+</div>
+<button id="analyzeButton" class="primary-button full-button" disabled>Analyze Patient Images</button>
+</section>
+
+<!-- =====================================================
+     PREDICTION RESULT
+     ===================================================== -->
+
+<section id="resultPanel" class="panel hidden">
+
+    <div class="panel-title">
+
+        <div>
+            <span class="mini-label">
+                RETINAL MODEL OUTPUT
+            </span>
+
+            <h2>
+                Prediction Result
+            </h2>
+        </div>
+
+        <span class="complete-badge">
+            <i class="fa-solid fa-check"></i>
+            Analysis complete
+        </span>
+
+    </div>
+
+
+    <!-- =================================================
+         LEFT EYE
+         ================================================= -->
+
+    <div class="eye-result-card">
+
+        <div class="eye-title">
+
+            <div>
+                <span class="mini-label">
+                    EYE 01
+                </span>
+
+                <h3>
+                    Left Eye
+                </h3>
+            </div>
+
+        </div>
+
+
+        <!-- Prediction + Confidence -->
+
+        <div class="result-summary">
+
+            <div class="result-box main-result">
+
+                <span>
+                    Predicted Disease
+                </span>
+
+                <strong id="leftResultDisease">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <span>
+                    Confidence
+                </span>
+
+                <strong id="leftResultConfidence">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Left probabilities -->
+
+        <div class="probability-header">
+
+            <h3>
+                Left Eye Class Probabilities
+            </h3>
+
+            <span>
+                8 classes
+            </span>
+
+        </div>
+
+        <div id="leftProbabilityList"></div>
+
+
+        <!-- Left AI information -->
+
+        <div class="ai-medical-card">
+
+            <div class="ai-card-header">
+
+                <div>
+
+                    <span class="mini-label">
+                        AI-GENERATED MEDICAL INFORMATION
+                    </span>
+
+                    <h3>
+                        Left Eye Details
+                    </h3>
+=======
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RetinaAI Clinical Decision Support System</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-eye"></i>
+
+            <h2>RetinaAI</h2>
+
+        </div>
+
+        <ul>
+
+            <li class="active"><i class="fa-solid fa-house"></i> Dashboard</li>
+
+            <li><i class="fa-solid fa-upload"></i> New Prediction</li>
+
+            <li><i class="fa-solid fa-clock-rotate-left"></i> History</li>
+
+            <li><i class="fa-solid fa-book-medical"></i> Knowledge Base</li>
+
+            <li><i class="fa-solid fa-chart-line"></i> Analytics</li>
+
+            <li><i class="fa-solid fa-gear"></i> Settings</li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main>
+
+        <!-- Top Header -->
+
+        <header>
+
+            <div>
+
+                <h1>AI Clinical Decision Support System</h1>
+
+                <p>Retinal Eye Disease Detection using Computer Vision, RAG & LLM</p>
+
+            </div>
+
+            <button class="profile-btn">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+                Research Prototype
+
+            </button>
+
+        </header>
+
+        <!-- Upload Row -->
+
+        <section class="row">
+
+            <!-- Upload Card -->
+
+            <div class="card">
+
+                <h2><i class="fa-solid fa-upload"></i> Upload Fundus Image</h2>
+
+                <div class="upload-area">
+
+                    <input type="file" id="imageInput" accept="image/*">
+
+                    <label for="imageInput">
+
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                        <p>Drag & Drop or Click to Upload</p>
+
+                    </label>
+
+                </div>
+
+                <button class="analyze-btn">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    Analyze Retina
+
+                </button>
+
+            </div>
+
+            <!-- Preview -->
+
+            <div class="card">
+
+                <h2><i class="fa-solid fa-image"></i> Fundus Image</h2>
+
+                <img id="preview" src="" alt="Preview">
+
+            </div>
+
+            <!-- GradCAM -->
+
+            <div class="card">
+
+                <h2><i class="fa-solid fa-fire"></i> Grad-CAM</h2>
+
+                <div class="placeholder">
+
+                    Heatmap will appear here
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Prediction -->
+
+        <section class="card">
+
+            <h2>
+
+                <i class="fa-solid fa-brain"></i>
+
+                Disease Prediction
+
+            </h2>
+
+            <div class="prediction-grid">
+
+                <div>
+
+                    <h3>Disease</h3>
+
+                    <p id="disease">Not Predicted</p>
+
+                </div>
+
+                <div>
+
+                    <h3>Confidence</h3>
+
+                    <p id="confidence">--%</p>
+
+                </div>
+
+                <div>
+
+                    <h3>Severity</h3>
+
+                    <p id="severity">--</p>
+
+                </div>
+
+                <div>
+
+                    <h3>Prediction Time</h3>
+
+                    <p>0.00 sec</p>
+>>>>>>> ed8811f1d29fc9bb7c0b03e7fbc53b9f90ff75e4
+
+                </div>
+
+            </div>
+
+<<<<<<< HEAD
+
+            <div
+                id="leftMedicalReport"
+                class="medical-report">
+                Generating medical information...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         RIGHT EYE
+         ================================================= -->
+
+    <div class="eye-result-card">
+
+        <div class="eye-title">
+
+            <div>
+
+                <span class="mini-label">
+                    EYE 02
+                </span>
+
+                <h3>
+                    Right Eye
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <!-- Prediction + Confidence -->
+
+        <div class="result-summary">
+
+            <div class="result-box main-result">
+
+                <span>
+                    Predicted Disease
+                </span>
+
+                <strong id="rightResultDisease">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <span>
+                    Confidence
+                </span>
+
+                <strong id="rightResultConfidence">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Right probabilities -->
+
+        <div class="probability-header">
+
+            <h3>
+                Right Eye Class Probabilities
+            </h3>
+
+            <span>
+                8 classes
+            </span>
+
+        </div>
+
+        <div id="rightProbabilityList"></div>
+
+
+        <!-- Right AI information -->
+
+        <div class="ai-medical-card">
+
+            <div class="ai-card-header">
+
+                <div>
+
+                    <span class="mini-label">
+                        AI-GENERATED MEDICAL INFORMATION
+                    </span>
+
+                    <h3>
+                        Right Eye Details
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="rightMedicalReport"
+                class="medical-report"
+            >
+                Generating medical information...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DISCLAIMER -->
+
+    <div class="prototype-note">
+
+        <span>
+            Research prototype for educational purposes.
+            The AI prediction is not a confirmed medical diagnosis.
+        </span>
+
+    </div>
+
+</section>
+
+
+
+     <!-- BOTTOM BUTTONS -->
+
+<section
+    id="bottomActions"
+    class="bottom-actions hidden"
+>
+
+    <button
+        id="newPredictionButton"
+        class="secondary-button">
+
+
+        New Prediction
+
+    </button>
+
+
+    <button
+        id="askQuestionButton"
+        class="primary-button">
+
+
+        Ask About This Prediction
+
+    </button>
+
+</section>
+
+
+<!-- ASK QUESTION -->
+
+<section
+    id="chatPanel"
+    class="panel chat-panel hidden">
+
+    <div class="panel-title">
+
+    
+
+
+        <button
+            id="closeChat"
+            class="close-chat"
+            type="button">
+
+        </button>
+
+    </div>
+
+
+    <!-- Current predictions -->
+
+    <div class="chat-predictions">
+
+        <div>
+
+            <span>
+                LEFT EYE
+            </span>
+
+            <strong id="chatLeftPrediction">
+                —
+            </strong>
+
+        </div>
+
+
+        <div>
+
+            <span>
+                RIGHT EYE
+            </span>
+
+            <strong id="chatRightPrediction">
+                —
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- Question -->
+
+
+    <div class="question-row">
+
+        <input
+            id="questionInput"
+            type="text"
+            placeholder="e.g. What are the common symptoms?">
+
+
+        <button
+            id="sendQuestionButton"
+            class="primary-button"
+            type="button">
+
+            Send
+
+        </button>
+
+    </div>
+
+
+    <!-- Answer -->
+
+    <div id="chatAnswerBox" class="chat-answer hidden">
+    <div class="chat-answer-title">
+        Question History
+    </div>
+
+    <div id="chatHistory" class="chat-history"></div>
+   </div>
+
+</section>
+
+</div> 
+
+<aside class="image-viewer-column"><section class="panel viewer-panel">
+<div class="panel-title"><div><span class="mini-label">IMAGE VIEWER</span><h2>Patient Fundus Images</h2></div>
+</div>
+<div class="dual-viewer">
+<div class="eye-view"><span>LEFT EYE</span><div id="leftEmpty" class="viewer-empty"><strong>No image</strong></div><img id="leftPreview" class="hidden" alt="Left eye preview"></div>
+<div class="eye-view"><span>RIGHT EYE</span><div id="rightEmpty" class="viewer-empty"><strong>No image</strong></div><img id="rightPreview" class="hidden" alt="Right eye preview"></div>
+</div>
+<div class="viewer-footer"></div>
+</section></aside>
+</div>
+</section>
+</main>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body></html>
+=======
+            <div class="progress-section">
+
+                <label>Normal</label>
+
+                <progress value="0" max="100"></progress>
+
+                <label>Diabetic Retinopathy</label>
+
+                <progress value="0" max="100"></progress>
+
+                <label>Glaucoma</label>
+
+                <progress value="0" max="100"></progress>
+
+                <label>Cataract</label>
+
+                <progress value="0" max="100"></progress>
+
+                <label>AMD</label>
+
+                <progress value="0" max="100"></progress>
+
+            </div>
+
+        </section>
+
+        <!-- Explanation + RAG -->
+
+        <section class="double-grid">
+
+            <div class="card">
+
+                <h2>
+
+                    <i class="fa-solid fa-robot"></i>
+
+                    AI Explanation (LLM)
+
+                </h2>
+
+                <p>
+
+                    Upload a retinal image to receive a patient-friendly explanation generated by the Large Language Model.
+
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h2>
+
+                    <i class="fa-solid fa-book-open"></i>
+
+                    Retrieved Medical Knowledge (RAG)
+
+                </h2>
+
+                <ul>
+
+                    <li>Disease Description</li>
+
+                    <li>Symptoms</li>
+
+                    <li>Risk Factors</li>
+
+                    <li>Treatment</li>
+
+                    <li>References</li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+        <!-- Recommendation -->
+
+        <section class="card">
+
+            <h2>
+
+                <i class="fa-solid fa-stethoscope"></i>
+
+                Clinical Recommendation
+
+            </h2>
+
+            <ul>
+
+                <li>Consult an ophthalmologist.</li>
+
+                <li>Regular retinal examination.</li>
+
+                <li>Blood sugar monitoring.</li>
+
+                <li>Follow prescribed treatment.</li>
+
+            </ul>
+
+        </section>
+
+        <!-- History -->
+
+        <section class="card">
+
+            <h2>
+
+                <i class="fa-solid fa-clock"></i>
+
+                Prediction History
+
+            </h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Date</th>
+
+                        <th>Disease</th>
+
+                        <th>Confidence</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>11-Jul-2026</td>
+
+                        <td>Diabetic Retinopathy</td>
+
+                        <td>94%</td>
+
+                        <td>View</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>10-Jul-2026</td>
+
+                        <td>Normal</td>
+
+                        <td>99%</td>
+
+                        <td>View</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
+>>>>>>> ed8811f1d29fc9bb7c0b03e7fbc53b9f90ff75e4
