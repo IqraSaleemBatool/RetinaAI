@@ -1,12 +1,11 @@
-from google import genai
-from google.genai import types
-from llm.config import GEMINI_API_KEY
+import ollama
+# from google import genai
+# from google.genai import types
+# from llm.config import GEMINI_API_KEY
 from rag.rag import retrieve_chunks, build_context
 import json
 
-client = genai.Client(api_key=GEMINI_API_KEY)
-
-MODEL_NAME = "models/gemini-3.6-flash"
+MODEL_NAME = "llama3.2:1b"
 
 
 def generate_initial_report(left_prediction, right_prediction):
@@ -23,8 +22,8 @@ def generate_initial_report(left_prediction, right_prediction):
     detection diagnosis treatment management prevention
     """
 
-    left_results = retrieve_chunks(left_query, k=8)
-    right_results = retrieve_chunks(right_query, k=8)
+    left_results = retrieve_chunks(left_query, k=2)
+    right_results = retrieve_chunks(right_query, k=2)
 
     left_context = build_context(left_results)
     right_context = build_context(right_results)
@@ -45,15 +44,6 @@ RIGHT EYE MEDICAL INFORMATION:
 
 Generate medical information separately for each eye.
 
-For the LEFT EYE:
-- Discuss ONLY the left-eye prediction.
-- Use ONLY the retrieved left-eye information.
-
-For the RIGHT EYE:
-- Discuss ONLY the right-eye prediction.
-- Use ONLY the retrieved right-eye information.
-
-
 Keep LEFT and RIGHT eye information separate.
 
 For each eye explain,when available:
@@ -70,65 +60,39 @@ Keep the answer concise.
 Return ONLY valid JSON in exactly this format:
 
 {{
-    "left": "medical information for the left eye",
-    "right": "medical information for the right eye"
+    "left": "summary for the left eye",
+    "right": "summary information for the right eye"
 }}
-
-For EACH eye, format the answer exactly like this:
-
-### What it is
-Short explanation.
-
-### Symptoms / Signs
-- Point 1
-- Point 2
-- Point 3
-
-### Risk Factors
-- Point 1
-- Point 2
-
-### Detection
-Short explanation.
-
-### General Management
-- Point 1
-- Point 2
-
-### Important Note
-The prediction is not a confirmed diagnosis.
-
-Use Markdown headings and bullet points exactly as shown.
-Do not return the entire explanation as one paragraph.
 
 """
 
     try:
 
-        response = client.models.generate_content(
-            model=MODEL_NAME,
-            contents=prompt,
-             config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema={
-                    "type": "OBJECT",
-                    "properties": {
-                        "left": {
-                            "type": "STRING"
-                        },
-                        "right": {
-                            "type": "STRING"
-                        }
-                    },
-                    "required": ["left", "right"]
-                }
-            )
+        response = ollama.chat(
+        model=MODEL_NAME,
+        messages=[
+            {
+               "role": "user",
+               "content": prompt
+            }
+           ],
+        options={
+            "temperature": 0.2,
+            "num_ctx": 1024
+            }
         )
 
-        report = response.parsed
+        response_text = response["message"]["content"]
 
-        if report:
-            return report
+        try:
+            report = json.loads(response_text)
+
+            if report:
+                return report
+        
+        except json.JSONDecodeError:
+            print("Llama did not return valid JSON:")
+            print(response_text)
 
         return {
             "left": "Medical information is currently unavailable.",
@@ -159,8 +123,8 @@ def answer_followup_question(
 
     right_query = f"{right_prediction}: {user_question}"
 
-    left_results = retrieve_chunks(left_query, k=5)
-    right_results = retrieve_chunks(right_query, k=5)
+    left_results = retrieve_chunks(left_query, k=3)
+    right_results = retrieve_chunks(right_query, k=3)
 
     left_context = build_context(left_results)
     right_context = build_context(right_results)
@@ -195,15 +159,21 @@ Keep the answer concise.
 """
 
     try:
-
-        response = client.models.generate_content(
+        response = ollama.chat(
             model=MODEL_NAME,
-            contents=prompt
+            messages=[
+                {
+                  "role": "user",
+                  "content": prompt
+                }
+            ]
         )
 
-        return response.text
+        return response["message"]["content"]
 
     except Exception as e:
+
+        print("Follow-up LLM error:", e)
 
         return (
             "The LLM service is temporarily unavailable. "

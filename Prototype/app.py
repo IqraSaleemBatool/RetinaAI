@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import webbrowser,os
 from flask import Flask, render_template, request, jsonify
 
@@ -179,22 +178,5 @@ if __name__ == "__main__":
     if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
         webbrowser.open('http://127.0.0.1:5000')
 
-    app.run(debug=True, host='127.0.0.1', port=5000)
-=======
-from flask import Flask, render_template
-import webbrowser
-from threading import Timer
+    app.run(debug=True, host='127.0.0.1', port=5000 , use_reloader=False)
 
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-def open_browser():
-    webbrowser.open_new("http://127.0.0.1:5000")
-
-if __name__ == "__main__":
-    Timer(1, open_browser).start()
-    app.run(debug=True)
->>>>>>> ed8811f1d29fc9bb7c0b03e7fbc53b9f90ff75e4

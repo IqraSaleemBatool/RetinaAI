@@ -1,0 +1,35 @@
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model files
+*.pth
+*.pt
+*.h5
+*.keras
+
+# Temporary files
+.DS_Store
+Thumbs.db
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables / secrets
+.env
+
+# Local downloaded BGE model
+RetinaAI_Prototype_V2_FINAL_FIXED/rag/bge_model/
+
+# Large model files
+*.safetensors
+rag/bge_model/
+
+
+# Ollama Local Models
+ollama/
+models/

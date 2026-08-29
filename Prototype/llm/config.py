@@ -1,18 +1,24 @@
-import os
+# import os
 
-from dotenv import load_dotenv
-
-
-load_dotenv()
+# from dotenv import load_dotenv
 
 
-GEMINI_API_KEY = os.getenv(
-    "GEMINI_API_KEY"
-)
+# load_dotenv()
 
 
-if not GEMINI_API_KEY:
+# GEMINI_API_KEY = os.getenv(
+#     "GEMINI_API_KEY"
+# )
 
-    raise ValueError(
-        "GEMINI_API_KEY is not set."
-    )
+
+# if not GEMINI_API_KEY:
+
+#     raise ValueError(
+#         "GEMINI_API_KEY is not set."
+#     )
+
+# import os
+
+# from dotenv import load_dotenv
+
+# load_dotenv()
