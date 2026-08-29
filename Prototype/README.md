@@ -182,4 +182,4 @@ RetinaAI/
 ## Disclaimer
 
 This application is a research prototype intended for educational and early screening purposes only. It should not be used as a substitute for professional medical diagnosis or treatment.
->>>>>>> ed8811f1d29fc9bb7c0b03e7fbc53b9f90ff75e4
+
