@@ -102,13 +102,12 @@ RetinaAI/
 - [x] GitHub Repository Created
 - [x] Flask Project Setup
 - [x] Initial Dashboard UI
-- [ ] Image Upload Backend
-- [ ] EfficientNet-B4 Integration
-- [ ] Grad-CAM Integration
-- [ ] RAG Integration
-- [ ] LLM Integration
-- [ ] SQL Server Integration
-- [ ] Deployment
+- [X] Image Upload Backend
+- [X] EfficientNet-B4 Integration
+- [X] Grad-CAM Integration
+- [X] RAG Integration
+- [X] LLM Integration
+- [X] Deployment
 
 ---
 
