@@ -232,7 +232,7 @@ document.getElementById("analyzeButton").addEventListener("click", async () => {
     try {
 
         const response = await fetch(
-            "/predict",
+            "predict",
             {
                 method: "POST",
                 body: fd
@@ -466,7 +466,7 @@ document.getElementById("sendQuestionButton").addEventListener("click", async ()
 
     try {
 
-        const response = await fetch("/ask",
+        const response = await fetch("ask",
             {
             method:"POST",
 
@@ -482,14 +482,18 @@ document.getElementById("sendQuestionButton").addEventListener("click", async ()
             })
         });
 
-        const data =
-            await response.json();
-
-        if (!response.ok) {
+        const rawText = await response.text();
+        let data;
+        try {
+            data = JSON.parse(rawText);
+        } catch {
+            console.error("Non-JSON response:", rawText.slice(0, 300));
             throw new Error(
-                data.error ||
-                "Unable to get answer."
+                `Server returned ${response.status} (not JSON) — check console for details`
             );
+        }
+        if (!response.ok) {
+            throw new Error(data.error || "Unable to get answer.");
         }
 
         answer.innerHTML =
@@ -528,3 +532,47 @@ function escapeHtml(text) {
 
     return div.innerHTML;
 }
+
+// Force image viewer to show uploaded images
+// document.getElementById("leftInput").addEventListener("change", function(e) {
+//     const file = e.target.files[0];
+//     if (file) {
+//         const reader = new FileReader();
+//         reader.onload = function(event) {
+//             const img = document.getElementById("leftPreview");
+//             img.src = event.target.result;
+//             img.classList.remove("hidden");
+//             document.getElementById("leftEmpty").classList.add("hidden");
+//             document.getElementById("leftLabel").textContent = file.name;
+//             document.getElementById("leftName").textContent = file.name;
+//             leftFile = file;
+//             checkBothFiles();
+//         };
+//         reader.readAsDataURL(file);
+//     }
+// });
+
+// document.getElementById("rightInput").addEventListener("change", function(e) {
+//     const file = e.target.files[0];
+//     if (file) {
+//         const reader = new FileReader();
+//         reader.onload = function(event) {
+//             const img = document.getElementById("rightPreview");
+//             img.src = event.target.result;
+//             img.classList.remove("hidden");
+//             document.getElementById("rightEmpty").classList.add("hidden");
+//             document.getElementById("rightLabel").textContent = file.name;
+//             document.getElementById("rightName").textContent = file.name;
+//             rightFile = file;
+//             checkBothFiles();
+//         };
+//         reader.readAsDataURL(file);
+//     }
+// });
+
+// function checkBothFiles() {
+//     if (leftFile && rightFile) {
+//         document.getElementById("selectedPanel").classList.remove("hidden");
+//         document.getElementById("analyzeButton").disabled = false;
+//     }
+// }

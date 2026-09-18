@@ -9,7 +9,7 @@ from llm.llm import (
     answer_followup_question
 )
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="/static")
 
 
 # HOME
@@ -133,13 +133,14 @@ def ask():
       # GET USER QUESTION
         question = data.get(
             "question"
-        )
+        ),.56
+
 
      # VALIDATION
-        if not left_prediction or not right_prediction:
-            return jsonify({
-                "error": "Predictions are required."
-            }), 400
+        # if not left_prediction or not right_prediction:
+        #     return jsonify({
+        #         "error": "Predictions are required."
+        #     }), 400
 
 
         if not question:
