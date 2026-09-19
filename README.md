@@ -103,7 +103,7 @@ RetinaAI/
 - [x] Flask Project Setup
 - [x] Initial Dashboard UI
 - [X] Image Upload Backend
-- [X] EfficientNet-B4 Integration
+- [X] Resenet18 Integration
 - [X] Grad-CAM Integration
 - [X] RAG Integration
 - [X] LLM Integration

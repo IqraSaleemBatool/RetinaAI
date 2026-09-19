@@ -29,7 +29,6 @@ def _to_text(value):
     return str(value)
 
 
-
 def generate_initial_report(left_prediction, right_prediction):
     print(f"[LLM] Generating report for: Left={left_prediction}, Right={right_prediction}")
     
@@ -78,6 +77,7 @@ For each eye provide:
 
 ### Overview
 What the predicted condition is.
+
 
 ### Symptoms and Signs
 Important symptoms or retinal signs.
@@ -217,3 +217,4 @@ Provide a clear, detailed answer with:
     except Exception as e:
         print(f"[LLM] Follow-up error: {e}")
         return f"Unable to answer about {left_prediction}. Please try again."
+
