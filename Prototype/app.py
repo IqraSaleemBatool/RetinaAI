@@ -1,4 +1,4 @@
-import webbrowser,os
+# import webbrowser,os
 from flask import Flask, render_template, request, jsonify
 
 from models.resnet18 import predict_patient
@@ -133,7 +133,7 @@ def ask():
       # GET USER QUESTION
         question = data.get(
             "question"
-        ),.56
+        )
 
 
      # VALIDATION
@@ -175,9 +175,14 @@ def ask():
 #  RUN APPLICATION
 
 if __name__ == "__main__":
-      # Only open browser if not running in reloader process
-    if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
-        webbrowser.open('http://127.0.0.1:5000')
+     app.run(
+        debug=False,
+        host="0.0.0.0",
+        port=5000
+    )
+    #   # Only open browser if not running in reloader process
+    # if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
+    #     webbrowser.open('http://127.0.0.1:5000')
 
-    app.run(debug=True, host='127.0.0.1', port=5000 , use_reloader=False)
+    # app.run(debug=True, host='127.0.0.1', port=5000 , use_reloader=False)
 

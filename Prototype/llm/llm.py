@@ -4,6 +4,7 @@ import json
 import re
 
 MODEL_NAME = "llama3.2:3b"
+ollama_client = ollama.Client(host="http://ollama:11434")
 
 def _to_text(value):
     """Convert any value to plain text string"""
@@ -73,23 +74,29 @@ Instructions:
 7. Do not invent medical information.
 8. Do not say that the AI prediction is a confirmed diagnosis.
 
-For each eye provide:
+For EACH eye, the explanation MUST contain ALL of these five sections:
 
 ### Overview
-What the predicted condition is.
-
+Briefly explain each predicted condition.
 
 ### Symptoms and Signs
-Important symptoms or retinal signs.
+List the important symptoms and retinal signs associated with the predicted condition(s).
 
 ### Risk Factors
-Important risk factors.
+List the important risk factors associated with the predicted condition(s).
 
 ### Detection
-How the condition is generally detected.
+Explain how the condition is generally detected or evaluated.
 
 ### Management
-General management or monitoring information.
+Explain general management, monitoring, prevention, or treatment approaches.
+
+IMPORTANT:
+- Do NOT return only a definition.
+- ALL FIVE sections are required for BOTH eyes.
+- Use the retrieved information as the main source.
+- If information for a section is not available in the retrieved context, say that the information is unavailable rather than inventing it.
+- Keep the explanation focused on the conditions actually predicted for that eye.
 
 Return ONLY valid JSON:
 
@@ -102,7 +109,7 @@ Return ONLY valid JSON:
 
     try:
         print("[LLM] Calling model...")
-        response = ollama.chat(
+        response = ollama_client.chat(
             model=MODEL_NAME,
             messages=[{"role": "user", "content": prompt}],
             options={
@@ -198,7 +205,7 @@ Provide a clear, detailed answer with:
 ### Management
 """
 
-        response = ollama.chat(
+        response = ollama_client.chat(
             model=MODEL_NAME,
             messages=[{"role": "user", "content": prompt}],
             options={
