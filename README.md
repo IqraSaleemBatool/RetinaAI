@@ -6,7 +6,7 @@ RetinaAI is an AI-powered Clinical Decision Support System (CDSS) designed to as
 
 The system integrates:
 
-- Computer Vision (EfficientNet-B4)
+- Computer Vision (Resent18)
 - Explainable AI (Grad-CAM)
 - Retrieval-Augmented Generation (RAG)
 - Large Language Model (LLM)
