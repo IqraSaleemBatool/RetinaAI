@@ -106,10 +106,9 @@ RetinaAI/
 - [X] Image Upload Backend
 - [X] EfficientNet-B4 Integration
 - [X] Grad-CAM Integration
-- [ ] RAG Integration
-- [ ] LLM Integration
-- [ ] SQL Server Integration
-- [ ] Deployment
+- [X] RAG Integration
+- [X] LLM Integration
+- [X] Deployment
 
 ---
 
