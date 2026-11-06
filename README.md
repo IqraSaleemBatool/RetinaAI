@@ -12,9 +12,9 @@ The project Is intended for research and educational purposes. Its output is not
 
 - Upload left-eye and right-eye fundus images for one patient.
 - Generate a joint patient-level retinal disease prediction.
-- Display prediction confidence, model probabilities, and relevant model outputs.
+- Display prediction confidence, model Probabilities, and relevant model outputs.
 - Generate a medical information report using retrieved reference material and an LLM.
-- Ask follow-up questions about the prediction.
+- Ask follow-up questions about the Prediction.
 - Provide a web interface through Flask, HTML, CSS, and JavaScript.
 - Run the application in a Docker container.
 
