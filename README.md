@@ -6,7 +6,7 @@ RetinaAI is a Flask-based retinal image analysis research prototype designed to 
 
 The application integrates the QCDP-BiFormer inference pipeline with a retrieval-augmented generation (RAG) system and a locally hosted large language model (LLM). It provides a web interface for image upload, prediction visualization, medical information reports, and follow-up questions.
 
-The project is intended for research and educational purposes. Its output is not a confirmed medical diagnosis and must not replace professional medical evaluation.
+The project Is intended for research and educational purposes. Its output is not a confirmed medical diagnosis and must not replace professional medical evaluation.
 
 ## 2. Main Features
 
