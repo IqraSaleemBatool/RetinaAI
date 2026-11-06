@@ -79,7 +79,7 @@ Prototype/
     └── style.css
 ```
 
-The Model and RAG directories must contain all artifacts referenced by the application. The structure above summarizes the principal files; additional required Files should be retained.
+The Model and RAG directories must contain all artifacts referenced by the application. The structure above summarizes the principal files; additional required Files should be Retained.
 
 ## 5. System Workflow
 
