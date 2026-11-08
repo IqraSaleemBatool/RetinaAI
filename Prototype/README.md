@@ -28,7 +28,7 @@ This project is intended for research and educational purposes and **does not re
 - RAG-based medical knowledge retrieval
 - Clinical recommendations
 - Prediction history
-- Modern responsive dashboard
+- Modern Responsive dashboard
 
 ---
 
