@@ -21,7 +21,7 @@ This project is intended for research and educational purposes and **does not re
 ## Features
 
 - Upload retinal fundus image
-- AI-based disease prediction
+- AI-based Disease prediction
 - Confidence score visualization
 - Grad-CAM heatmap
 - AI-generated explanation
