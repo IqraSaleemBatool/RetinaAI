@@ -3,7 +3,7 @@
 
 ## Project Overview
 
-RetinaAI is an AI-powered Clinical Decision Support System (CDSS) designed to assist in the early screening of retinal eye diseases from fundus images.
+RetinaAI is an AI-Powered Clinical Decision Support System (CDSS) designed to assist in the early screening of retinal eye diseases from fundus images.
 
 The system integrates:
 
