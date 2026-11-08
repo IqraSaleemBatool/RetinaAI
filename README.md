@@ -10,7 +10,7 @@ The project Is intended for research and educational purposes. Its output is not
 
 ## 2. Main Features
 
-- Upload left-eye and right-eye fundus images for one patient.
+- Upload left-eye and right-eye Fundus images for one patient.
 - Generate a joint patient-level retinal disease prediction.
 - Display prediction confidence, model Probabilities, and relevant model outputs.
 - Generate a medical information report using retrieved reference material and an LLM.
